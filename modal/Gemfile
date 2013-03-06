@@ -1,0 +1,6 @@
+source 'http://rubygems.org'
+
+gem 'sass'
+gem "compass"
+gem "animation", "~> 0.1.alpha.0"
+gem 'rb-fsevent'
