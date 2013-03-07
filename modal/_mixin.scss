@@ -1,0 +1,97 @@
+@mixin modal-container {
+  // Overlay page content - the backdrop
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparentize($black, $modal-background-transparent);
+  z-index: 10000;
+
+  // Transition opacity on open modal
+  @include transition(opacity 100ms ease-in);  //compass mixin
+
+  // Hide modal
+  @include opacity(0); // compass mixin that addresses IE code
+  pointer-events: none;
+
+  // Show modal
+  &:target {
+    @include opacity(1); // compass mixin that addresses IE code
+    pointer-events: auto;
+    // pointer-events not supported by Opera or IE
+    // http://caniuse.com/#search=pointer
+  }
+}
+
+@mixin modal-content {
+  width: em($modal-width);
+  background-color: $modal-background-color;
+  position: relative;
+  margin: #{$modal-placement-margin}% auto;
+
+  // Design attributes for the modal window
+  padding: em($modal-padding);
+  border-radius: em($modal-border-radius);
+  box-shadow: 0 3px em(20) $modal-shadow-color;
+  background-color: $modal-gradient-start;
+  @include filter-gradient($modal-gradient-start, $modal-gradient-end, vertical); // IE6-9
+  @include background-image(linear-gradient(top, $modal-gradient-start 0%, $modal-gradient-end 100%));
+  text-shadow: 0 1px 0 $white;
+
+  @if $modal-header-style == true {
+    @include modal-content-header-styling;
+  }
+
+  @if $modal-close-button-style == true {
+    @include modal-close-button-styling;
+  }
+}
+
+// -------------------------------------------------------------------
+
+@mixin modal-content-header-styling {
+  h2 {
+    font-size: em(36);
+    padding: 0 0 em(20);
+  }
+}
+
+@mixin modal-close-button-styling {
+  // Modal close link
+  a {
+    &[href="#close"] {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: transparent;
+    }
+    &:hover {
+      &:after {
+        @include scale(1.1, 1.1);  // compass mixin
+      }
+    }
+    &[href="#close"]:after {
+      content: 'X';
+      display: block;
+
+      // position
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      width: 1.5em;
+      padding: 1px 1px 1px 2px;
+
+      // Style
+      text-decoration: none;
+      text-shadow: none;
+      text-align: center;
+      font-weight: bold;
+      background: #000;
+      color: #fff;
+      border: 3px solid #fff;
+      border-radius: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+  }
+}

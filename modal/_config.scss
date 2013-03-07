@@ -6,8 +6,17 @@ $white: #ffffff;
 $black: #333333;
 $gray: #cccccc;
 
+// Content styling
+$modal-header-style: true;
+$modal-close-button-style: true;
 
 // Modal attributes
+$modal-background-transparent: 0.5;
 $modal-width: 500;
+$modal-background-color: $white;
 $modal-gradient-start: $white;
 $modal-gradient-end: $gray;
+$modal-shadow-color: transparentize($black, 0.1);
+$modal-placement-margin: 15;
+$modal-padding: 30;
+$modal-border-radius: 7;
